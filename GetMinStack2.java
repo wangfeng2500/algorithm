@@ -1,0 +1,72 @@
+package algorithm;
+
+import java.util.Stack;
+
+/**
+ * Created by IDEA
+ * User：fenngwang
+ * Date：2020/12/15
+ * Time：0:14
+ */
+public class GetMinStack2 {
+
+    private Stack<Integer> valueStack = new Stack<>();
+
+    private Stack<Integer> minValueStack = new Stack<>(); // 存放最小值
+
+
+    public void pushStack(int i)
+    {
+        valueStack.push(i);
+        if(minValueStack.isEmpty())
+        {
+            minValueStack.push(i);
+        }
+        else if(i <= minValueStack.peek())
+        {
+            minValueStack.push(i);
+        }
+        else {
+            minValueStack.push(minValueStack.peek()); // 重复压一次
+        }
+    }
+
+    public void popStack()
+    {
+        valueStack.pop();
+        minValueStack.pop();
+    }
+
+    public int getMin()
+    {
+        return minValueStack.peek();
+    }
+
+
+    public String toString(){
+        return  valueStack.toString();
+    }
+
+    public static void main(String[] args) {
+        GetMinStack minStack = new GetMinStack();
+        minStack.pushStack(10);
+        System.out.println(minStack + ",min is " + minStack.getMin());
+        minStack.pushStack(9);
+        System.out.println(minStack + ",min is " + minStack.getMin());
+        minStack.pushStack(9);
+        System.out.println(minStack + ",min is " + minStack.getMin());
+        minStack.pushStack(1);
+        System.out.println(minStack + ",min is " + minStack.getMin());
+        minStack.pushStack(8);
+        System.out.println(minStack + ",min is " + minStack.getMin());
+        minStack.popStack();
+        System.out.println(minStack + ",min is " + minStack.getMin());
+        minStack.popStack();
+        System.out.println(minStack + ",min is " + minStack.getMin());
+        minStack.popStack();
+        System.out.println(minStack + ",min is " + minStack.getMin());
+        minStack.popStack();
+        System.out.println(minStack + ",min is " + minStack.getMin());
+    }
+
+}
