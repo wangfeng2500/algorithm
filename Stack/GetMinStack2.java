@@ -1,19 +1,21 @@
-package algorithm;
+package algorithm.Stack;
+
+import algorithm.Stack.GetMinStack;
 
 import java.util.Stack;
 
 /**
  * Created by IDEA
  * User：fenngwang
- * Date：2020/12/14
- * Time：21:14
- * Desc：
+ * Date：2020/12/15
+ * Time：0:14
+ * Desc:
  【题目】实现一个特殊的栈，在实现栈的基本功能的基础上，再实现返回栈中最小元素的操作。
  【要求】1.pop、push、getMin操作的时间复杂度都是O（1）。
-        2.设计的栈类型可以使用现成的栈结构。
+       2.设计的栈类型可以使用现成的栈结构。
  */
-public class GetMinStack
-{
+public class GetMinStack2 {
+
     private Stack<Integer> valueStack = new Stack<>();
 
     private Stack<Integer> minValueStack = new Stack<>(); // 存放最小值
@@ -30,15 +32,15 @@ public class GetMinStack
         {
             minValueStack.push(i);
         }
+        else {
+            minValueStack.push(minValueStack.peek()); // 重复压一次
+        }
     }
 
     public void popStack()
     {
-        int head = valueStack.pop();
-        if(head <= minValueStack.peek())  //出队的时候如果数字比最小值小，则最小值也出去
-        {
-            minValueStack.pop();
-        }
+        valueStack.pop();
+        minValueStack.pop();
     }
 
     public int getMin()
@@ -72,4 +74,5 @@ public class GetMinStack
         minStack.popStack();
         System.out.println(minStack + ",min is " + minStack.getMin());
     }
+
 }

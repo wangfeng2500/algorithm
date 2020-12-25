@@ -1,4 +1,4 @@
-package algorithm;
+package algorithm.Stack;
 
 import java.beans.Statement;
 import java.util.Stack;
