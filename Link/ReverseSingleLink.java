@@ -17,12 +17,23 @@ package algorithm.Link;
  **/
 class ReverseSingleLink {
 
-     static class ListNode {
+    static class ListNode {
         int val;
         ListNode next;
-     }
 
-    public ListNode reverseList(ListNode head) {
+        public void print() {
+            System.out.print(val);
+            if (this.next != null) {
+                System.out.print("->");
+                this.next.print();
+            } else {
+                System.out.println();
+            }
+        }
+    }
+
+    // 迭代反转单链表
+    public static ListNode reverseList(ListNode head) {
         ListNode prev = null;
         ListNode current = head;
 
@@ -33,36 +44,53 @@ class ReverseSingleLink {
             current = next;
         }
         return prev;
-
-        // 为什么下面不通过？
-        // if (head == null) {
-        //     return null;
-        // }
-
-        // ListNode prev = head;
-        // ListNode current = head.next;
-        // while (current != null)
-        // {
-        //     ListNode next = current.next;
-        //     current.next = prev;
-        //     prev = current;
-        //     current = next;
-        // }
-        // return prev;
     }
 
-//    // 递归的反转链表
-//    public ListNode reverseLinkRecursive(ListNode head)
-//    {
-//        ListNode prev = null;
-//        ListNode current = head;
-//        if(current == null)
-//            return prev;
-//
-//        ListNode next = current.next;
-//        current.next = prev;
-//        prev = current;
-//        current = next;
-//        return reverseLinkRecursive(current);
-//    }
+    public static void main(String[] args) {
+        ListNode node1 = new ListNode();
+        node1.val = 1;
+        ListNode node2 = new ListNode();
+        node2.val = 2;
+        ListNode node3 = new ListNode();
+        node3.val = 3;
+        ListNode node4 = new ListNode();
+        node4.val = 4;
+        ListNode node5 = new ListNode();
+        node5.val = 5;
+
+        node1.next = node2;
+        node2.next = node3;
+        node3.next = node4;
+        node4.next = node5;
+
+        node1.print();
+        ListNode newList = reverseLinkRecursive(node1);
+        newList.print();
+    }
+
+
+
+    // 递归的反转链表，其实这个看的不是很懂
+    // 参考：https://labuladong.gitbook.io/algo/mu-lu-ye-1/mu-lu-ye/di-gui-fan-zhuan-lian-biao-de-yi-bu-fen
+    public static ListNode reverseLinkRecursive(ListNode head)
+    {
+        if(head == null || head.next == null){
+            return head;
+        }
+
+        System.out.print("before: ");
+        head.print();
+        // 遍历到链表尾部
+        ListNode newHead = reverseLinkRecursive(head.next);
+        System.out.print("after: ");
+        newHead.print();
+
+        // 反转
+        head.next.next = head;
+        head.next = null;
+
+        return newHead;
+    }
+
+
 }
