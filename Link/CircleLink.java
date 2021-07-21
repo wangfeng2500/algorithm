@@ -1,6 +1,7 @@
 package algorithm.Link;
 
 import algorithm.Link.ReverseSingleLink.ListNode;
+import org.omg.CORBA.PUBLIC_MEMBER;
 
 /**
  * 环形链表
@@ -59,5 +60,24 @@ public class CircleLink
         }
         //否则就是没环
         return false;
+    }
+
+    // 检测链表环的起点
+    public ListNode detectCycle(ListNode head) {
+        ListNode fast, slow;
+        fast = slow = head;
+        while (fast != null && fast.next != null) {
+            fast = fast.next.next;
+            slow = slow.next;
+            if (fast == slow) break;
+        }
+
+        // 当快慢指针相遇后，慢指针回到head，然后快慢指针同时每次前进一步，当相遇时就是环的起点
+        slow = head;
+        while (slow != fast) {
+            fast = fast.next;
+            slow = slow.next;
+        }
+        return slow;
     }
 }
